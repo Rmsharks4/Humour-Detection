@@ -1,0 +1,24 @@
+#!/usr/bin/python
+import json
+from pprint import pprint
+import ast
+f = open("funny.txt","w")
+nf = open("notfunny.txt","w")
+nfun = 0
+nnfun = 0 
+with open("/home/user/Desktop/sem2/IRE/project/review.txt") as data_file: 
+	for line in data_file:
+		#print "asasas"   
+		data = ast.literal_eval(line)	
+		#print type(data),type(data["votes"])
+		#pprint(data["votes"])
+		if(data["votes"]["funny"]) > 2:
+			funny = data["text"]+","+str(data["votes"]["funny"])+"\n"
+			f.write(funny)
+			nfun += 1
+		else:
+			nfunny = data["text"]+","+str(data["votes"]["funny"])+"\n"
+			nf.write(nfunny)
+			nnfun +=1
+print "Funny jokes ",nfun
+print "Non-Funny jokes ",nnfun
