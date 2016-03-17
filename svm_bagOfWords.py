@@ -17,38 +17,41 @@ def create_tfidf_training_data(docs):
 	return X, y
 
 def train_svm(X, y):
-	svm = SVC(C=1.0, kernel='linear')
+	if k == 'linear':
+		svm = SVC(C=1.0, kernel='linear')
+	elif k =='rbf':
+		svm = SVC(C=1.0, kernel='rbf')
 	svm.fit(X, y)
 	return svm
 
 
 if __name__ == "__main__":
+
+	k = raw_input("Enter kernel type (linear/rbf):")
+	
+	#creating Bag-of-words features
+	print "creating tfidf features..."
 	dataFile = open('data.txt','rb')
 	d = pickle.load(dataFile)
-
 	X, y = create_tfidf_training_data(d)
 
-	print "tfidf features created..."
+	#separating training and testing data
+	print "spliting into train, test data..."
 	X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2, random_state = 42)
 
-	trainData = open('trainData.txt','w')
-	testData = open('testData.txt','w')
-	trainLabels = open('trainLabels.txt','w')
-	testLabels = open('testLabels.txt','w')
-	pickle.dump(X_train,trainData)
-	pickle.dump(y_train, trainLabels)
-	pickle.dump(X_test, testData)
-	pickle.dump(y_test, testLabels)
-	print "split into train, test data..."
-
+	#training classifier
 	print"training..."
-	svm = train_svm(X_train, y_train)
+	svm = train_svm(X_train, y_train, k)
 
+	#save classifier for future use if required
 	clf = open('clf.txt','w')
 	pickle.dump(svm, clf)
 
-	print "finished training."
-	pred = svm.predict(X_test)
+	print "prediction results on test data..."
+	predictions = svm.predict(X_test)
 
 	#print(svm.score(X_test, y_test))
-	print accuracy_score(y_test, pred)
+	print "Accuracy: ",
+	print accuracy_score(y_test, predictions)
+
+	dataFile.close()
