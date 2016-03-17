@@ -5,24 +5,24 @@ import pickle
 
 d = []
 
-def getData(inputFile, dataFile):
+def getData(inputFile, dataFile, n):
 	funnyCount = 0
 	notFunnyCount = 0
 
 	for line in inputFile:
 		data = json.loads(line)
-		if data["votes"]["funny"] > 2 and funnyCount < 50000:
+		if data["votes"]["funny"] > 2 and funnyCount < n:
 			funnyCount += 1
 			t = ('1',data["text"].encode('utf-8'))
 			d.append(t)
 
-		elif notFunnyCount< 50000:
+		elif notFunnyCount < n:
 			notFunnyCount += 1
 			t = ('0',data["text"].encode('utf-8'))
 			d.append(t)
 
 		else:
-			if funnyCount >= 50000 and notFunnyCount >= 50000:
+			if funnyCount >= n and notFunnyCount >= n:
 				break
 
 	print len(d)
@@ -32,17 +32,16 @@ def getData(inputFile, dataFile):
 
 if __name__ == "__main__":
 
-	inputFile = open('dataset/yelp_academic_dataset_review.json','r')
-	dataFile = open('data.txt','w')
+	outputFileName = raw_input("output file name:")
+	n = raw_input("number of datapoints needed for each class:")
 
-	getData(inputFile, dataFile)
+	inputFile = open('dataset/yelp_academic_dataset_review.json','r')
+	dataFile = open(outputFileName,'w')
+
+	getData(inputFile, dataFile,n)
 
 	inputFile.close()
 	dataFile.close()
 
-	# dataFile = open('data.txt','r')
-	# x = pickle.load(dataFile)
-	# print x
-	# dataFile.close()
 
 
