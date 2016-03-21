@@ -1,0 +1,67 @@
+import pickle
+import nltk.data	# Download the punkt tokenizer for sentence splitting
+#nltk.download()
+import logging
+from gensim.models import word2vec
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',level=logging.INFO)   
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+reviewsLst = []
+tokenizer = []
+sentences = []
+
+num_features = 100    # Word vector dimensionality                      
+min_word_count = 40   # Minimum word count                        
+num_workers = 4       # Number of threads to run in parallel
+context = 10          # Context window size                                                                                    
+downsampling = 1e-3   # Downsample setting for frequent words
+
+# Load the punkt tokenizer
+tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+
+def readFileOfReviews():
+# Read each review from file
+	global reviewsLst
+	preview = open("/home/user/Desktop/sem2/IRE/project/shallow_input/data.txt", "rb")
+	reviewsLst =  pickle.load(preview)
+
+
+def review_to_sentences( review, tokenizer ): #returns list of sentences
+    # 1. Use the NLTK tokenizer to split the paragraph into sentences
+    try:
+	raw_sentences = tokenizer.tokenize(review.strip())
+	sentence = []
+	for raw_sentence in raw_sentences:
+	    if len(raw_sentence) > 0:          
+		sentence.append(raw_sentence.lower().split())
+	return sentence
+    except UnicodeDecodeError as e:
+	print review
+   	
+
+def ParseReview(reviewsLst,tokenizer,sentences):
+	count  = 1
+	for review in reviewsLst:
+		#print review,count
+		
+		#if count > 100:
+		#	break
+		try:
+			sentences += review_to_sentences(review[1], tokenizer)
+		except TypeError as e:
+			#print review
+			count += 1
+	print "Reviews read ",count
+
+def Word2Vector(sentences):
+	model = word2vec.Word2Vec(sentences, workers=num_workers,size=num_features, min_count = min_word_count,\
+            window = context, sample = downsampling)
+	model_name = "Yelp_Reviews"
+	model.save(model_name)
+
+
+readFileOfReviews()
+#print reviewsLst[0]," ssdsd"
+ParseReview(reviewsLst,tokenizer,sentences)
