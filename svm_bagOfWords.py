@@ -16,7 +16,7 @@ def create_tfidf_training_data(docs):
 	X = vectorizer.fit_transform(corpus)
 	return X, y
 
-def train_svm(X, y):
+def train_svm(X, y, k):
 	if k == 'linear':
 		svm = SVC(C=1.0, kernel='linear')
 	elif k =='rbf':

@@ -1,12 +1,14 @@
 import pickle
 import nltk.data	# Download the punkt tokenizer for sentence splitting
 #nltk.download()
+import nltk
 import logging
+import codecs
 from gensim.models import word2vec
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',level=logging.INFO)   
 import sys
 reload(sys)
-sys.setdefaultencoding('utf8')
+sys.setdefaultencoding('utf-8')
 
 reviewsLst = []
 tokenizer = []
@@ -18,30 +20,30 @@ num_workers = 4       # Number of threads to run in parallel
 context = 10          # Context window size                                                                                    
 downsampling = 1e-3   # Downsample setting for frequent words
 
-# Load the punkt tokenizer
-tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+
 
 def readFileOfReviews():
 # Read each review from file
-	global reviewsLst
-	preview = open("/home/user/Desktop/sem2/IRE/project/shallow_input/data.txt", "rb")
+        global reviewsLst
+	preview = open("data.txt", "rb")
 	reviewsLst =  pickle.load(preview)
 
 
-def review_to_sentences( review, tokenizer ): #returns list of sentences
+def review_to_sentences( review): #returns list of sentences
     # 1. Use the NLTK tokenizer to split the paragraph into sentences
+    sentence=[]
+    global raw_sentence
     try:
-	raw_sentences = tokenizer.tokenize(review.strip())
-	sentence = []
+	raw_sentences = nltk.word_tokenize(review.strip())
 	for raw_sentence in raw_sentences:
-	    if len(raw_sentence) > 0:          
+	    if len(raw_sentence) > 0:
 		sentence.append(raw_sentence.lower().split())
+                # print sentence
 	return sentence
     except UnicodeDecodeError as e:
-	print review
-   	
+   	pass
 
-def ParseReview(reviewsLst,tokenizer,sentences):
+def ParseReview(reviewsLst,sentences):
 	count  = 1
 	for review in reviewsLst:
 		#print review,count
@@ -49,19 +51,20 @@ def ParseReview(reviewsLst,tokenizer,sentences):
 		#if count > 100:
 		#	break
 		try:
-			sentences += review_to_sentences(review[1], tokenizer)
+			sentences += review_to_sentences(review[1])
 		except TypeError as e:
-			#print review
-			count += 1
+			pass
+		count += 1
 	print "Reviews read ",count
+        return sentences
 
 def Word2Vector(sentences):
-	model = word2vec.Word2Vec(sentences, workers=num_workers,size=num_features, min_count = min_word_count,\
-            window = context, sample = downsampling)
+	model = word2vec.Word2Vec(sentences, workers=num_workers,size=num_features, min_count = min_word_count, window = context, sample = downsampling)
 	model_name = "Yelp_Reviews"
 	model.save(model_name)
 
 
 readFileOfReviews()
 #print reviewsLst[0]," ssdsd"
-ParseReview(reviewsLst,tokenizer,sentences)
+sentences = ParseReview(reviewsLst,sentences)
+Word2Vector(sentences)
