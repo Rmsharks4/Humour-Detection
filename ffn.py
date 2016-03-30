@@ -36,28 +36,15 @@ def createTrainingList(reviewLst):
         vec = 0
         for i in revWords:
             try:
-                vec+=model[i]
+                vec+=model[i]/2
             except:
                 pass
         vec=vec/len(revWords)
         sds.addSample(vec,review[0])
     net = buildNetwork(100, 20, 1, hiddenclass=TanhLayer, outclass=SoftmaxLayer,bias=True)
     trainer = BackpropTrainer(net, sds)
-    print "Score1:",trainer.train()
-    print "Score2:",trainer.trainUntilConvergence(verbose=True,maxEpochs=100)
+    print "Error score:",trainer.train()
+    print trainer.trainUntilConvergence(verbose=True,maxEpochs=100)
 
 readFileOfReviews()
 createTrainingList(reviewLst)
-"""ds = SupervisedDataSet(100, 2)
-for i in range(0,25001):
-    ds.addSample(tuple(model1.docvecs[i]),(1,0))
-print "Dataset length:",len(ds)
-print "Dataset built"
-print "Building Network"
-
-
-print "Network Built"
-print "Backpropogation Completed"
-
-print "After Convergence:"
-"""
