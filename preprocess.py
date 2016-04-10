@@ -5,11 +5,12 @@ import pickle
 
 d = []
 
-def getData(inputFile, dataFile, n):
+def getData(inputFile, dataFile,n):
 	funnyCount = 0
 	notFunnyCount = 0
 
 	for line in inputFile:
+		print "hey"
 		data = json.loads(line)
 		if data["votes"]["funny"] > 2 and funnyCount < n:
 			funnyCount += 1
@@ -33,12 +34,12 @@ def getData(inputFile, dataFile, n):
 if __name__ == "__main__":
 
 	outputFileName = raw_input("output file name:")
-	n = raw_input("number of datapoints needed for each class:")
+	n = input("number of datapoints needed for each class:")
 
 	inputFile = open('dataset/yelp_academic_dataset_review.json','r')
 	dataFile = open(outputFileName,'w')
 
-	getData(inputFile, dataFile,n)
+	getData(inputFile, dataFile, n)
 
 	inputFile.close()
 	dataFile.close()
