@@ -10,7 +10,7 @@ def getData(inputFile, dataFile,n):
 	notFunnyCount = 0
 
 	for line in inputFile:
-		print "hey"
+		#print "hey"
 		data = json.loads(line)
 		if data["votes"]["funny"] > 2 and funnyCount < n:
 			funnyCount += 1
