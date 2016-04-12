@@ -6,6 +6,8 @@ from sklearn.feature_extraction.text  import TfidfVectorizer
 from sklearn.cross_validation import train_test_split
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score
+from sklearn import cross_validation
+from sklearn.cross_validation import KFold
 
 d = []
 
@@ -35,23 +37,37 @@ if __name__ == "__main__":
 	d = pickle.load(dataFile)
 	X, y = create_tfidf_training_data(d)
 
-	#separating training and testing data
-	print "spliting into train, test data..."
-	X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.2, random_state = 42)
+	#print X
+	#print y
+	kf = KFold(len(y), n_folds = 5, shuffle= True)
+	#print len(kf)
+	iteration = 1
+	accuracies = []
+	for train, test in kf:
+		print ("iteration " + str(iteration) + ":")
+		#print ("%s %s" % (train,test))
 
-	#training classifier
-	print"training..."
-	svm = train_svm(X_train, y_train, k)
+		print "Creating training testing data..."
+		y_train = []
+		y_test = []
+		X_train, X_test = X[train], X[test]
+		for i in train:
+			y_train.append(y[i])
+		for j in test:
+			y_test.append(y[j])
 
-	#save classifier for future use if required
-	clf = open('clf.txt','w')
-	pickle.dump(svm, clf)
+		print "training classifier..."
+		svm = train_svm(X_train, y_train, k)
 
-	print "prediction results on test data..."
-	predictions = svm.predict(X_test)
+		print "getting predictions..."
+		predictions = svm.predict(X_test)
 
-	#print(svm.score(X_test, y_test))
+		print "calculating accuracies..."
+	 	s = accuracy_score(y_test, predictions)
+	 	print s
+	 	accuracies.append(s)
+		iteration = iteration + 1
+
 	print "Accuracy: ",
-	print accuracy_score(y_test, predictions)
-
+	print reduce(lambda x, y: x + y, accuracies) / float(len(accuracies))
 	dataFile.close()

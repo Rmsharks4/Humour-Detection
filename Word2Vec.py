@@ -25,7 +25,7 @@ downsampling = 1e-3   # Downsample setting for frequent words
 def readFileOfReviews():
 # Read each review from file
         global reviewsLst
-	preview = open(sys.argv[1], "rb")
+	preview = open("data.txt", "rb")
 	reviewsLst =  pickle.load(preview)
 
 

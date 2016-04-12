@@ -8,5 +8,6 @@ Problem Statement : To utilize the state-of-the-art in deep learning methods and
 	> python svm_bagOfWords.py
    Then on prompt enter in "linear" or "rbf" as per your choice
    
-   For Feed Forward Neural Networks (FFN):
+   For Word2Vec & Feed Forward Neural Networks (FFN):
+   	Give the output file name of preprocess.py program as input argument to Word2Vec.py in RUN_FFN.sh
 	> bash RUN_FFN.sh
