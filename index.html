@@ -1,168 +1,177 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
-    <title>Humour-detection by srishti-1795</title>
-  </head>
-
-  <body>
-
-    <header>
-      <div class="container">
-        <h1>Humour-detection</h1>
-        <h2>Humour detection in Yelp reviews</h2>
-
-        <section id="downloads">
-          <a href="https://github.com/srishti-1795/Humour-Detection/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/srishti-1795/Humour-Detection/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/srishti-1795/Humour-Detection" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-
-        <section id="tags">
-          <p class='btn'>Information Retrieval and Extraction Course</p>
-          <p class='btn'>Major Project</p>
-          <p class='btn'>IIIT-H</p>
-          <p class='btn'>Humour Detection</p>
-          <p class='btn'>Yelp Reviews</p>
-        </section>
-
-      </div>
-    </header>
-
-    <div class="container">
-      <section id="main_content">
-        <h1>
-<a id="humour-detection" class="anchor" href="#humour-detection" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Humour-Detection</h1>
-
-<p>Humour detection in Yelp reviews</p>
-
-<h4>
-<a id="problem-statement-" class="anchor" href="#problem-statement-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Problem Statement :</h4>
-
-<p>To utilize the state-of-the-art in deep learning methods and show that deep learning can capture the higher order structure of humor in Yelp reviews, by comparing with state-of-the-art shallow learning techniques. </p>
-
-<h3>
-<a id="applications-" class="anchor" href="#applications-" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Applications :</h3>
-
-<p>Humor is a necessary part of all verbal communication. With the advancement of computational technologies, increasingly more emphasis is being placed on systems that can handle human natural language effectively. Thus, without humor detection and generation, no natural language system can be considered successful. It is necessary for a full computational understanding of natural language documents and for enabling intelligent conversational agents to handle humor.</p>
-
-<p>Domain specific application: Yelp is a platform which aims to provide accurate, crowd-sourced opinion about a place of business. Humour detection in the reviews present there, can be used to determine the importance, or the genuineness of a particular review.</p>
-
-<h3>
-<a id="challenges" class="anchor" href="#challenges" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Challenges</h3>
-
-<ul>
-<li>Any results derived from work on Yelp data may end up being highly domain specific. But, the lack of any openly available dataset for humour leaves no option.</li>
-<li>The human classification of something as “humour” can be very subjective.</li>
-</ul>
-
-<h3>
-<a id="dataset" class="anchor" href="#dataset" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Dataset:</h3>
-
-<p>We are using the  Yelp Dataset Challenge dataset, which consists of about 1.6 million reviews by 366,000 users for 61,000 businesses. Each yelp review has user given votes for three categories - “funny”, “cool” and “useful”.  We are using this community provided data to get our dataset. Any review with more than 3 “funny votes” is taken as funny, and the others as not-funny. We extracted a balanced set of 1,00,000 reviews, containing equal number of samples for both classes. This data is be used for training and testing purposes for this project.</p>
-
-<h3>
-<a id="modules" class="anchor" href="#modules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Modules:</h3>
-
-<ol>
-<li>SVM on bag-of-words word representations, 5-fold cross validation
-
-<ul>
-<li>Linear kernel</li>
-<li>RBF Kernel</li>
-</ul>
-</li>
-<li>Feed Forward Network on word2vec generated word vectors</li>
-<li>Convulational Neural Networks</li>
-</ol>
-
-<h3>
-<a id="run" class="anchor" href="#run" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Run:</h3>
-
-<p>Before running make sure all requirements are installed </p>
-
-<pre><code> &gt; pip install -r requirements.txt
-</code></pre>
-
-<ol>
-<li>
-<p>For SVM built on top of bag-of-words word representations </p>
-
-<blockquote>
-<p>python svm_bagOfWords.py</p>
-</blockquote>
-
-<p>Then on prompt enter either "linear" or "rbf" as per your choice</p>
-</li>
-<li>
-<p>Feed Forward Neural Networks (FFN) built on top of word2vec genrated word vectors:</p>
-
-<p>Give the output file name of preprocess.py program as input argument to Word2Vec.py in RUN_FFN.sh</p>
-
-<blockquote>
-<p>bash RUN_FFN.sh</p>
-</blockquote>
-</li>
-<li>
-<p>Convulational neural networks:</p>
-
-<p>The code given in Yoon Kim's code for <a href="https://github.com/yoonkim/CNN_sentence">CNN for sentence classification</a> was used. After being trained on googles word2vec dataset, our dataset was used for testing purposes.</p>
-</li>
-</ol>
-
-<h3>
-<a id="results" class="anchor" href="#results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results:</h3>
-
-<p>Accuracy scores achieved were as follows:</p>
-
-<ol>
-<li>
-<p>SVM</p>
-
-<ul>
-<li>Linear Kernel: 0.83</li>
-<li>RBF kernel: 0.497</li>
-</ul>
-</li>
-<li><p>Feed Forward Neural Network:  0.75</p></li>
-<li>
-<p>Convolutional Neural Network</p>
-
-<ul>
-<li>Static: 
-
-<ul>
-<li>word2vec: 0.83</li>
-<li>random: 0.75</li>
-</ul>
-</li>
-<li>Non-static:
-
-<ul>
-<li>word2vec: 0.83</li>
-<li>random: 0.78</li>
-</ul>
-</li>
-</ul>
-</li>
-</ol>
-
-<h3>
-<a id="references" class="anchor" href="#references" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>References:</h3>
-
-<ul>
-<li><a href="https://cs224d.stanford.edu/reports/OliveiraLuke.pdf">Oliveira and Rodrigo, "Humor Detection in Yelp reviews" </a></li>
-<li><a href="http://emnlp2014.org/papers/pdf/EMNLP2014181.pdf">Yoon Kim, "Convolutional Neural Networks for Sentence Classification"</a></li>
-</ul>
-      </section>
-    </div>
-
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+        <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+        <title>Humour-detection on Yelp reviews</title>
+    </head>
     
-  </body>
+    <body>
+        <header>
+            <div class="container">
+                <h1>Humour-detection</h1>
+                <h2>Humour detection in Yelp reviews</h2>
+                <section id="downloads">
+                    <a href="https://github.com/srishti-1795/Humour-Detection/zipball/master" class="btn">Download as .zip</a>
+                    <a href="https://github.com/srishti-1795/Humour-Detection/tarball/master" class="btn">Download as .tar.gz</a>
+                    <a href="https://github.com/srishti-1795/Humour-Detection" class="btn btn-github">
+                        <span class="icon"></span>View on GitHub
+                    </a>
+                </section>
+            </div>
+        </header>
+        <div class="container">
+            <section id="main_content">
+                <h1>
+                    <a id="humour-detection" class="anchor" href="#humour-detection" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>Humour-Detection
+                </h1>
+                <p>Humour detection in Yelp reviews</p>
+                <h4>
+                    <a id="problem-statement-" class="anchor" href="#problem-statement-" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>Problem Statement :
+                </h4>
+                <p>To utilize the state-of-the-art in deep learning methods and show that deep learning can capture the higher order structure of humor in Yelp reviews, by comparing with state-of-the-art shallow learning techniques. </p>
+                <h3>
+                    <a id="applications-" class="anchor" href="#applications-" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>Applications :
+                </h3>
+                <p>Humor is a necessary part of all verbal communication. With the advancement of computational technologies, increasingly more emphasis is being placed on systems that can handle human natural language effectively. Thus, without humor detection and generation, no natural language system can be considered successful. It is necessary for a full computational understanding of natural language documents and for enabling intelligent conversational agents to handle humor.</p>
+                <p>Domain specific application: Yelp is a platform which aims to provide accurate, crowd-sourced opinion about a place of business. Humour detection in the reviews present there, can be used to determine the importance, or the genuineness of a particular review.</p>
+                <h3>
+                    <a id="challenges" class="anchor" href="#challenges" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>Challenges
+                </h3>
+                <ul>
+                    <li>Any results derived from work on Yelp data may end up being highly domain specific. But, the lack of any openly available dataset for humour leaves no option.</li>
+                    <li>The human classification of something as “humour” can be very subjective.</li>
+                </ul>
+                <h3>
+                    <a id="dataset" class="anchor" href="#dataset" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>Dataset:
+                </h3>
+                <p>We are using the Yelp Dataset Challenge dataset, which consists of about 1.6 million reviews by 366,000 users for 61,000 businesses. Each yelp review has user given votes for three categories - “funny”, “cool” and “useful”. We are using this community provided data to get our dataset. Any review with more than 3 “funny votes” is taken as funny, and the others as not-funny. We extracted a balanced set of 1,00,000 reviews, containing equal number of samples for both classes. This data is be used for training and testing purposes for this project.</p>
+                <h3>
+                    <a id="modules" class="anchor" href="#modules" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>Modules:
+                </h3>
+                <ol>
+                    <li>SVM on bag-of-words word representations, 5-fold cross validation
+
+
+                        <ul>
+                            <li>Linear kernel</li>
+                            <li>RBF Kernel</li>
+                        </ul>
+                    </li>
+                    <li>Feed Forward Network on word2vec generated word vectors</li>
+                    <li>Convulational Neural Networks</li>
+                </ol>
+                <h3>
+                    <a id="run" class="anchor" href="#run" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>Run:
+                </h3>
+                <p>Before running make sure all requirements are installed </p>
+                <pre>
+                    <code> &gt; pip install -r requirements.txt
+</code>
+                </pre>
+                <ol>
+                    <li>
+                        <p>For SVM built on top of bag-of-words word representations </p>
+                        <blockquote>
+                            <p>python svm_bagOfWords.py</p>
+                        </blockquote>
+                        <p>Then on prompt enter either "linear" or "rbf" as per your choice</p>
+                    </li>
+                    <li>
+                        <p>Feed Forward Neural Networks (FFN) built on top of word2vec genrated word vectors:</p>
+                        <p>Give the output file name of preprocess.py program as input argument to Word2Vec.py in RUN_FFN.sh</p>
+                        <blockquote>
+                            <p>bash RUN_FFN.sh</p>
+                        </blockquote>
+                    </li>
+                    <li>
+                        <p>Convulational neural networks:</p>
+                        <p>The code given in Yoon Kim's code for 
+                            <a href="https://github.com/yoonkim/CNN_sentence">CNN for sentence classification</a> was used. After being trained on googles word2vec dataset, our dataset was used for testing purposes.
+                        </p>
+                    </li>
+                </ol>
+                <h3>
+                    <a id="results" class="anchor" href="#results" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>Results:
+                </h3>
+                <p>Accuracy scores achieved were as follows:</p>
+                <ol>
+                    <li>
+                        <p>SVM</p>
+                        <ul>
+                            <li>Linear Kernel: 0.83</li>
+                            <li>RBF kernel: 0.497</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <p>Feed Forward Neural Network: 0.75</p>
+                    </li>
+                    <li>
+                        <p>Convolutional Neural Network</p>
+                        <ul>
+                            <li>Static:
+
+        
+                                <ul>
+                                    <li>word2vec: 0.83</li>
+                                    <li>random: 0.75</li>
+                                </ul>
+                            </li>
+                            <li>Non-static:
+
+        
+                                <ul>
+                                    <li>word2vec: 0.83</li>
+                                    <li>random: 0.78</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ol>
+                <h3>
+                    <a id="references" class="anchor" href="#references" aria-hidden="true">
+                        <span aria-hidden="true" class="octicon octicon-link"></span>
+                    </a>References:
+                </h3>
+                <ul>
+                    <li>
+                        <a href="https://cs224d.stanford.edu/reports/OliveiraLuke.pdf">Oliveira and Rodrigo, "Humor Detection in Yelp reviews" </a>
+                    </li>
+                    <li>
+                        <a href="http://emnlp2014.org/papers/pdf/EMNLP2014181.pdf">Yoon Kim, "Convolutional Neural Networks for Sentence Classification"</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <footer>
+            <div class="container">
+                <section id="tags">
+                    <p class='btn'>Information Retrieval and Extraction Course</p>
+                    <p class='btn'>Major Project</p>
+                    <p class='btn'>IIIT-H</p>
+                    <p class='btn'>Humour Detection</p>
+                    <p class='btn'>Yelp Reviews</p>
+                </section>
+            </div>
+        </footer>
+    </body>
 </html>
