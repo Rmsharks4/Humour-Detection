@@ -1,5 +1,7 @@
 dataset/*
 data.txt
 data_2.txt
+data_try.txt
 miniData.txt
 clf.txt
+svm_try.py
