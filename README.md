@@ -44,7 +44,7 @@ We are using the  Yelp Dataset Challenge dataset, which consists of about 1.6 mi
 
 3. Convulational neural networks:
 
-    The code given in Yoon Kim's code for [CNN for sentence classification](https://github.com/yoonkim/CNN_sentence) was used. After being trained on googles word2vec dataset, our dataset was used for testing purposes.
+    The code given in Yoon Kim's code for [CNN for sentence classification](https://github.com/yoonkim/CNN_sentence) was used. The pre-trained [Google's news corpus](https://code.google.com/archive/p/word2vec/) word vector representations are used.
 
 ###Results:
 Accuracy scores achieved were as follows:
@@ -57,11 +57,16 @@ Accuracy scores achieved were as follows:
 
 2. Convolutional Neural Network
   - Static: 
-    - word2vec: 0.83
-    - random: 0.75
+    - word2vec: 0.8015
+    - random: 0.754
   - Non-static:
-    - word2vec: 0.83
-    - random: 0.78
+    - word2vec: 0.8073
+    - random: 0.7831
+
+###Links:
+1. [Project webpage](http://srishti-1795.github.io/Humour-Detection/)
+2. [Youtube Video](https://youtu.be/Y2VHCbGppMs)
+3. [Presentation](http://www.slideshare.net/SrishtiAggarwal5/humour-detection)
 
 ###References:
 - [Oliveira and Rodrigo, "Humor Detection in Yelp reviews" ](https://cs224d.stanford.edu/reports/OliveiraLuke.pdf)
